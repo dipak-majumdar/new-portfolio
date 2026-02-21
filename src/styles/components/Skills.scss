@@ -1,0 +1,62 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @include m.md {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+// ─── Group card ───────────────────────────────────────────────────────────────
+.skill-card {
+    padding: 1.5rem;
+    border-radius: v.$radius-lg;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), transparent);
+}
+
+.skill-card-title {
+    font-weight: 600;
+    color: v.$emerald;
+    margin-bottom: 1.25rem;
+}
+
+// ─── Icon grid ───────────────────────────────────────────────────────────────
+.skill-icons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.skill-item {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.08);
+    transition: all 0.25s ease;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: flex-start;
+    width: fit-content;
+    white-space: nowrap;
+
+    &:hover {
+        transform: translateY(-3px);
+        // background: rgba(16, 185, 129, 0.12);
+        // background: rgba(16, 185, 129, 0.14);
+        background: rgba(16, 185, 129, 0.10);
+
+    }
+}
+
+.skill-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+}

@@ -1,0 +1,39 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.footer {
+    border-top: 1px solid v.$border-light;
+    background: v.$bg-light;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: v.$muted;
+    transition: border-color v.$transition-normal;
+
+    @include m.dark {
+        border-top-color: v.$border-dark;
+    }
+}
+
+// ─── GitHub FAB ──────────────────────────────────────────────────────────────
+// Placed here as it's a global floating element rendered in App near Footer
+.github-fab {
+    position: fixed;
+    bottom: .6rem;
+    right: 1.5rem;
+    background: v.$emerald;
+    color: #fff;
+    padding: 0.8rem 1.25rem;
+    border-radius: v.$radius-pill;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+    transition: background v.$transition-fast, transform v.$transition-fast;
+    z-index: 200;
+
+    &:hover {
+        background: v.$emerald-dark;
+        transform: scale(1.06);
+    }
+}

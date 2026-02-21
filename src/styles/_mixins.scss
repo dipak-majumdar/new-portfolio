@@ -1,0 +1,66 @@
+// ─── Responsive breakpoint helpers ───────────────────────────────────────────
+@use 'variables' as v;
+
+/// Styles from $bp-md upward (tablet / desktop)
+@mixin md {
+    @media (min-width: v.$bp-md) {
+        @content;
+    }
+}
+
+/// Styles below $bp-md (mobile only)
+@mixin mobile {
+    @media (max-width: #{v.$bp-md - 1}) {
+        @content;
+    }
+}
+
+// ─── Dark mode helper ─────────────────────────────────────────────────────────
+/// Wraps @content in `body.dark &`
+@mixin dark {
+    body.dark & {
+        @content;
+    }
+}
+
+// ─── Glassmorphism surface ────────────────────────────────────────────────────
+@mixin glass($blur: 10px, $bg-light: rgba(255, 255, 255, 0.65), $bg-dark: rgba(17, 24, 39, 0.65)) {
+    backdrop-filter: blur($blur);
+    background: $bg-light;
+    border: 1px solid rgba(221, 221, 221, 0.5);
+    border-radius: v.$radius-md;
+    padding: 1.5rem;
+    transition: background v.$transition-normal;
+
+    @include dark {
+        background: $bg-dark;
+        border-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &:hover {
+        @include hover-standard;
+    }
+}
+
+// ─── Emerald glow shadow ─────────────────────────────────────────────────────
+@mixin glow($strength: 0.35) {
+    box-shadow: 0 0 40px rgba(16, 185, 129, $strength);
+}
+
+@mixin hover-standard {
+    border: 1px solid v.$emerald-hover;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.12);
+    transition: border v.$transition-normal;
+
+    @include dark {
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 1px 5px rgba(255, 255, 255, 0.12);
+    }
+}
+
+// ─── Flex center ─────────────────────────────────────────────────────────────
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

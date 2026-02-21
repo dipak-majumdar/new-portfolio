@@ -1,0 +1,35 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.stats {
+    padding-bottom: 3rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    text-align: center;
+
+    @include m.md {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+// ─── Glass card (shared pattern) ──────────────────────────────────────────────
+.glass {
+    @include m.glass;
+}
+
+// ─── Stat content ─────────────────────────────────────────────────────────────
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: v.$emerald;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: v.$muted;
+    margin-top: 0.25rem;
+}

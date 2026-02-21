@@ -1,0 +1,104 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+.hero {
+    padding: 6rem 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    max-width: 1152px;
+    margin: 0 auto;
+
+    @include m.md {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+
+// ─── Status badge ─────────────────────────────────────────────────────────────
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: v.$radius-pill;
+    font-size: 12px;
+    background: v.$emerald-light;
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    margin-bottom: 1rem;
+}
+
+// ─── Headline ─────────────────────────────────────────────────────────────────
+.hero-title {
+    font-size: clamp(2.2rem, 6vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+
+    .accent {
+        color: v.$emerald;
+    }
+}
+
+// ─── Sub-copy ─────────────────────────────────────────────────────────────────
+.hero-desc {
+    margin-top: 1.5rem;
+    color: v.$body-text;
+    max-width: 560px;
+    line-height: 1.7;
+
+    @include m.dark {
+        color: v.$muted-dark;
+    }
+}
+
+// ─── CTA row ─────────────────────────────────────────────────────────────────
+.hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    background: v.$emerald;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: v.$radius-md;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background v.$transition-fast, transform v.$transition-fast;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+
+    &:hover {
+        background: v.$emerald-dark;
+        transform: translateY(-2px);
+    }
+}
+
+.btn-outline {
+    display: inline-block;
+    border: 1.5px solid v.$emerald;
+    color: v.$emerald;
+    padding: 0.75rem 1.5rem;
+    border-radius: v.$radius-md;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background v.$transition-fast, transform v.$transition-fast;
+
+    &:hover {
+        background: rgba(16, 185, 129, 0.08);
+        transform: translateY(-2px);
+    }
+}
+
+// ─── Floating visual ─────────────────────────────────────────────────────────
+.hero-visual {
+    @include m.flex-center;
+}
+
+.avatar-box {
+    width: 18rem;
+    height: 18rem;
+    background: linear-gradient(135deg, #10b981, #34d399, #14b8a6);
+    border-radius: v.$radius-lg;
+    animation: float 6s ease-in-out infinite; // keyframe defined in _base
+}

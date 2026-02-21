@@ -1,0 +1,74 @@
+// ─── Global reset, base typography, utilities & animations ───────────────────
+@use 'variables' as v;
+@use 'mixins' as m;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: v.$font-base;
+    background-color: v.$bg-light;
+    color: v.$text-light;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    transition: background-color v.$transition-normal, color v.$transition-normal;
+
+    &.dark {
+        background-color: v.$bg-dark;
+        color: v.$text-dark;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    }
+}
+
+section {
+    padding: 4rem 0;
+}
+
+// ─── Layout helpers ───────────────────────────────────────────────────────────
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.container-sm {
+    max-width: 896px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+// ─── Shared utilities ─────────────────────────────────────────────────────────
+.glow {
+    @include m.glow;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 3rem;
+}
+
+// ─── Float animation (hero avatar, reusable) ──────────────────────────────────
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-14px);
+    }
+}

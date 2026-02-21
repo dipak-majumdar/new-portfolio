@@ -1,0 +1,55 @@
+// ─── Colour palette ──────────────────────────────────────────────────────────
+$emerald: #10b981;
+$emerald-dark: #059669;
+$emerald-light: rgba(16, 185, 129, 0.15);
+$emerald-glow: rgba(16, 185, 129, 0.35);
+$emerald-hover: #42eeb5;
+
+
+// backgrounds
+$bg-light: #f9fafb;
+$bg-dark: #0b0f19;
+$card-dark: #111827;
+
+// text
+$text-light: #1f2937;
+$text-dark: #e5e7eb;
+$muted: #6b7280;
+$muted-dark: #9ca3af;
+$body-text: #4b5563;
+
+// borders
+$border-light: #e5e7eb;
+$border-dark: #1f2937;
+
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+$bp-md: 768px;
+
+// ─── Spacing & Radii ─────────────────────────────────────────────────────────
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-pill: 999px;
+
+// ─── Typography ──────────────────────────────────────────────────────────────
+$font-base: 'Inter', sans-serif;
+
+// ─── Transitions ─────────────────────────────────────────────────────────────
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-theme: background 0.3s, border-color 0.3s, color 0.3s;
+
+// ─── CSS custom props (consumed by plain CSS at runtime) ─────────────────────
+:root {
+    --emerald: #{$emerald};
+    --emerald-dark: #{$emerald-dark};
+    --emerald-light: #{$emerald-light};
+    --bg-light: #{$bg-light};
+    --bg-dark: #{$bg-dark};
+    --card-dark: #{$card-dark};
+    --text-light: #{$text-light};
+    --text-dark: #{$text-dark};
+    --border-light: #{$border-light};
+    --border-dark: #{$border-dark};
+    scroll-behavior: smooth;
+}

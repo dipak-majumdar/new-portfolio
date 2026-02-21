@@ -1,0 +1,15 @@
+// ─── Design-system tokens ─────────────────────────────────────────────────────
+@use './styles/variables'; // defines :root CSS vars + SCSS variables
+
+// ─── Global base ─────────────────────────────────────────────────────────────
+@use './styles/base'; // reset, body, section, layout helpers, animations
+
+// ─── Components ──────────────────────────────────────────────────────────────
+@use './styles/components/Navbar';
+@use './styles/components/Hero';
+@use './styles/components/Stats';
+@use './styles/components/About';
+@use './styles/components/Experience';
+@use './styles/components/Skills';
+@use './styles/components/Projects';
+@use './styles/components/Footer';
