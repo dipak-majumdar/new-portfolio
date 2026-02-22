@@ -1,3 +1,5 @@
+import image from '../assets/dipak-majumdar.png';
+
 export default function Hero() {
     return (
         <section id="hero">
@@ -21,7 +23,8 @@ export default function Hero() {
 
                     {/* Visual side */}
                     <div className="hero-visual" data-aos="zoom-in">
-                        <div className="avatar-box glow" />
+                        <img className="avatar-box glow" src={image} alt="" />
+                        {/* <div className="avatar-box glow" /> */}
                     </div>
 
                 </div>

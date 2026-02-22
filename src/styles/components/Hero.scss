@@ -98,7 +98,9 @@
 .avatar-box {
     width: 18rem;
     height: 18rem;
+    object-fit: cover;
+    object-position: top;
     background: linear-gradient(135deg, #10b981, #34d399, #14b8a6);
     border-radius: v.$radius-lg;
-    animation: float 6s ease-in-out infinite; // keyframe defined in _base
+    // animation: float 6s ease-in-out infinite; // keyframe defined in _base
 }
