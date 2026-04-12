@@ -15,6 +15,23 @@
     }
 }
 
+.hero > :first-child{
+    @include m.mobile{
+        text-align: center;
+    }
+    .hero-btns{
+        @include m.mobile{
+            justify-content: center;
+        }
+    }
+}
+
+.hero > :nth-child(2){
+    @include m.mobile{
+        margin-top: 2rem;
+    }
+}
+
 // ─── Status badge ─────────────────────────────────────────────────────────────
 .badge {
     display: inline-block;
