@@ -11,6 +11,7 @@
     transition: border-color v.$transition-normal;
 
     @include m.dark {
+        background: rgba(11, 15, 25, 0.8);
         border-top-color: v.$border-dark;
     }
 }
