@@ -11,7 +11,7 @@
     margin: 0 auto;
 
     @include m.md {
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 1.5fr 1fr;
     }
 }
 
@@ -57,16 +57,19 @@
     margin-top: 2rem;
 }
 
-.btn-primary {
+.hero-btns a{
+    padding: 0.5rem 1.2rem;
     display: inline-block;
+    // border-radius: v.$radius-md;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background v.$transition-fast, transform v.$transition-fast;
+}
+.btn-primary {
     background: v.$emerald;
     color: #fff;
-    padding: 0.75rem 1.5rem;
-    border-radius: v.$radius-md;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background v.$transition-fast, transform v.$transition-fast;
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+    // box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
 
     &:hover {
         background: v.$emerald-dark;
@@ -75,14 +78,8 @@
 }
 
 .btn-outline {
-    display: inline-block;
     border: 1.5px solid v.$emerald;
     color: v.$emerald;
-    padding: 0.75rem 1.5rem;
-    border-radius: v.$radius-md;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background v.$transition-fast, transform v.$transition-fast;
 
     &:hover {
         background: rgba(16, 185, 129, 0.08);
@@ -103,4 +100,75 @@
     background: linear-gradient(135deg, #10b981, #34d399, #14b8a6);
     border-radius: v.$radius-lg;
     // animation: float 6s ease-in-out infinite; // keyframe defined in _base
+}
+
+/* terminal hero */
+.terminal {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #f0f0f0;
+    border: 1px solid rgba(16,185,129,0.25);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+    @include m.dark {
+        background: #020617;
+        border: 1px solid rgba(16,185,129,0.25);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+}
+
+.terminal-header {
+    background: #3b3b3b;
+    padding: 10px 14px;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    gap: 6px;
+    @include m.dark{
+        background: #0f172a;
+        
+    }
+}
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.red{ background:#ef4444; }
+.dot.yellow{ background:#f59e0b; }
+.dot.green{ background:#10b981; }
+
+.terminal-body {
+    color: v.$emerald;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    @include m.dark{
+        color: v.$emerald;
+    }
+}
+
+.cmd-res-text {
+    color: #000000;
+    @include m.dark{
+        color: #ffffff;
+    }
+}
+.animate-pulse {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
