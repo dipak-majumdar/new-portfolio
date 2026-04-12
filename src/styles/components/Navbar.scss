@@ -11,7 +11,8 @@
     transition: v.$transition-theme;
 
     @include m.dark {
-        background: rgba(11, 15, 25, 0.8);
+        // background: rgba(11, 15, 25, 0.8);
+        background: #282C33;
         border-bottom-color: v.$border-dark;
     }
 

@@ -11,30 +11,66 @@
     transition: border-color v.$transition-normal;
 
     @include m.dark {
-        background: rgba(11, 15, 25, 0.8);
+        // background: rgba(11, 15, 25, 0.8);
+        background: #282C33;
         border-top-color: v.$border-dark;
     }
 }
 
-// ─── GitHub FAB ──────────────────────────────────────────────────────────────
-// Placed here as it's a global floating element rendered in App near Footer
-.github-fab {
-    position: fixed;
-    bottom: .6rem;
-    right: 1.5rem;
-    background: v.$emerald;
-    color: #fff;
-    padding: 0.8rem 1.25rem;
-    border-radius: v.$radius-pill;
+// ─── Social icons row inside footer ──────────────────────────────────────────
+// Bare icons — no wrapper box, no border, no shadow
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    // Start invisible and zero-height; animate in when footer is visible
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, max-height 0.4s ease, margin-bottom 0.4s ease;
+    margin-bottom: 0;
+
+    &--visible {
+        opacity: 1;
+        max-height: 3rem;
+        margin-bottom: 0.75rem;
+    }
+}
+
+// ─── Plain icon link — NO background, NO border, NO shadow ───────────────────
+.footer-social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    color: v.$muted;
     text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 600;
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
-    transition: background v.$transition-fast, transform v.$transition-fast;
-    z-index: 200;
+    transition: color 0.2s ease, transform 0.2s ease;
+
+    svg {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
 
     &:hover {
-        background: v.$emerald-dark;
-        transform: scale(1.06);
+        transform: translateY(-2px);
     }
+
+    // Per-platform accent on hover — still no box, just colour
+    &--github:hover   { color: #e2e8f0; }
+    &--linkedin:hover { color: #0a66c2; }
+    &--whatsapp:hover { color: #25d366; }
+    &--email:hover    { color: v.$emerald; }
+    &--phone:hover    { color: v.$emerald; }
+
+    @include m.dark {
+        color: v.$muted-dark;
+    }
+}
+
+// ─── Copyright text ───────────────────────────────────────────────────────────
+.footer-copy {
+    margin: 0;
 }

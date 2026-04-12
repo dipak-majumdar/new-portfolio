@@ -13,32 +13,7 @@
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
 .project-card {
-    padding: 1.5rem;
-    border: 1px solid v.$border-light;
-    border-radius: v.$radius-md;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(8px);
-    transition: transform v.$transition-normal,
-        box-shadow v.$transition-normal,
-        background v.$transition-normal;
-
-    @include m.dark {
-        background: rgba(17, 24, 39, 0.8);
-        border-color: v.$border-dark;
-    }
-
-    &:hover {
-        //     transform: translateY(-8px);
-        //     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        //     border-color: #0a724f;
-
-        //     @include m.dark {
-        //         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-        //         border-color: #0a724f;
-        //     }
-        @include m.hover-standard;
-    }
-
+    @include m.card;
 }
 
 .project-title {

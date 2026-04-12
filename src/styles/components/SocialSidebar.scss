@@ -1,0 +1,149 @@
+@use '../variables' as v;
+@use '../mixins' as m;
+
+// ─── Social Sidebar ───────────────────────────────────────────────────────────
+// Fixed vertical strip on the left edge, centred between the navbar top and
+// the vertical mid-point of the viewport.
+// Layout (top → bottom):
+//   • thin line  (connects to top of viewport / navbar)
+//   • icons
+//   • thin line  (decorative tail)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.social-sidebar {
+    position: fixed;
+    left: 1.75rem;           // distance from left edge
+    top: 0;                  // start from very top
+    bottom: 35%;             // end at vertical midpoint
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 90;             // below navbar (z-index: 100)
+    pointer-events: none;    // container is non-clickable; children override
+    opacity: 1;
+    transition: opacity 0.4s ease;
+
+    // ── Hidden: footer is in view, sidebar fades out ──────────────────────────
+    &--hidden {
+        opacity: 0;
+        pointer-events: none !important;
+        * { pointer-events: none; }
+    }
+
+    // ── Mobile: horizontal bar pinned to bottom center ─────────────────────
+    @include m.lg {
+        // reset vertical positioning
+        left: 50%;
+        top: auto;
+        bottom: 1rem;
+        transform: translateX(-50%);
+
+        // lay out as a row
+        flex-direction: row;
+        align-items: center;
+
+        // frosted-glass pill
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid v.$border-light;
+        border-radius: v.$radius-pill;
+        padding: 0.45rem 1rem;
+        gap: 0;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+
+        body.dark & {
+            background: rgba(11, 15, 25, 0.82);
+            border-color: v.$border-dark;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    // ── Line above the icons (connects to screen top / navbar) ────────────────
+    &__line-top {
+        flex: 1;             // grows to fill gap between top=0 and icons
+        width: 1.5px;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            v.$emerald 60%,
+            v.$emerald 100%
+        );
+        min-height: 3rem;
+
+        @include m.lg { display: none; }
+    }
+
+    // ── Icon list ─────────────────────────────────────────────────────────────
+    &__icons {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
+        pointer-events: auto;
+
+        @include m.lg {
+            flex-direction: row;
+            gap: 0.25rem;
+        }
+    }
+
+    // ── Line below the icons (decorative tail) ────────────────────────────────
+    &__line-bottom {
+        width: 1.5px;
+        height: 2.5rem;
+        background: linear-gradient(
+            to bottom,
+            v.$emerald 0%,
+            transparent 100%
+        );
+
+        @include m.lg { display: none; }
+    }
+}
+
+// ─── Individual icon button ───────────────────────────────────────────────────
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1.5px solid transparent;
+    color: v.$muted;
+    background: transparent;
+    text-decoration: none;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+    svg {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+
+    &:hover {
+        transform: translateY(-3px) scale(1.15);
+        border-color: v.$emerald;
+        background: v.$emerald-light;
+        box-shadow: 0 0 12px v.$emerald-glow;
+    }
+
+    // Per-platform accent colours on hover
+    &--github:hover   { color: #e2e8f0; }
+    &--linkedin:hover { color: #0a66c2; border-color: #0a66c2; background: rgba(10,102,194,0.12); box-shadow: 0 0 12px rgba(10,102,194,0.35); }
+    &--whatsapp:hover { color: #25d366; border-color: #25d366; background: rgba(37,211,102,0.12); box-shadow: 0 0 12px rgba(37,211,102,0.35); }
+    &--email:hover    { color: v.$emerald; }
+    &--phone:hover    { color: v.$emerald; }
+
+    @include m.dark {
+        color: v.$muted-dark;
+    }
+}

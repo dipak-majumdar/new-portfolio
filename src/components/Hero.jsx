@@ -10,7 +10,8 @@ export default function Hero() {
                     <div data-aos="fade-up">
                         <div className="badge">🚀 Available for opportunities</div>
                         <h2 className="hero-title">
-                            Hi, I'm <br /> <span className="accent">Dipak Majumdar</span>
+                            {/* Hi, I'm <br />  */}
+                            <span className="accent">Dipak Majumdar</span>
                         </h2>
                         <p className="hero-desc">
                             A Results-driven software developer specializing in performance, scalability, and clean architecture.

@@ -8,8 +8,11 @@ $emerald-hover: #42eeb5;
 
 // backgrounds
 $bg-light: #f9fafb;
-$bg-dark: #0b0f19;
+// $bg-dark: #0b0f19;
+$bg-dark: #282C33;
 $card-dark: #111827;
+// $card-dark: transparent;
+
 
 // text
 $text-light: #1f2937;
@@ -24,6 +27,8 @@ $border-dark: #1f2937;
 
 // ─── Breakpoints ─────────────────────────────────────────────────────────────
 $bp-md: 768px;
+$bp-lg: 992px;
+$bp-xl: 1200px;
 
 // ─── Spacing & Radii ─────────────────────────────────────────────────────────
 $radius-sm: 8px;
@@ -32,7 +37,9 @@ $radius-lg: 24px;
 $radius-pill: 999px;
 
 // ─── Typography ──────────────────────────────────────────────────────────────
-$font-base: 'Inter', sans-serif;
+// $font-base: 'Inter', sans-serif;
+$font-base: Fira Code,monospace;
+
 
 // ─── Transitions ─────────────────────────────────────────────────────────────
 $transition-fast: 0.2s ease;
