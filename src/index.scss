@@ -5,7 +5,7 @@
 @use './styles/base'; // reset, body, section, layout helpers, animations
 
 // ─── Components ──────────────────────────────────────────────────────────────
-@use './styles/components/Navbar';
+@use './styles/components/DarkToggle';
 @use './styles/components/Hero';
 @use './styles/components/Stats';
 @use './styles/components/About';

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import Navbar from './components/Navbar';
+
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import About from './components/About';
@@ -69,11 +69,9 @@ function App() {
     <>
       {/* Floating sidebar hidden when footer is in view */}
       <SocialSidebar hidden={footerInView} />
-
-      <Navbar dark={dark} toggleDark={toggleDark} />
-
+      
       <main>
-        <Hero />
+        <Hero dark={dark} toggleDark={toggleDark} />
         <About />
         <Stats />
         <Experience />

@@ -35,15 +35,39 @@
 
     .accent {
         color: v.$emerald;
+        @include m.dark{
+            color: v.$bg-light;
+        }
     }
 }
 
 // ─── Sub-copy ─────────────────────────────────────────────────────────────────
-.hero-desc {
+.hero-subtitle {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    color: v.$text-light;
+    font-size: clamp(1rem, 2.4vw, 1.35rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    
+    @include m.dark{
+        color: v.$emerald;
+    }
+}
+
+.hero-location {
     margin-top: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     color: v.$body-text;
-    max-width: 560px;
-    line-height: 1.7;
+    font-weight: 600;
+
+    i {
+        color: v.$emerald;
+        font-size: 1rem;
+    }
 
     @include m.dark {
         color: v.$muted-dark;
@@ -53,20 +77,35 @@
 // ─── CTA row ─────────────────────────────────────────────────────────────────
 .hero-btns {
     display: flex;
-    gap: 1rem;
+    gap: .5rem;
     flex-wrap: wrap;
     margin-top: 2rem;
 }
 
 .hero-btns a{
     padding: 0.5rem 1.2rem;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
     // border-radius: v.$radius-md;
-    border-radius: 12px;
+    border-radius: 6px;
     font-weight: 600;
     text-decoration: none;
     transition: background v.$transition-fast, transform v.$transition-fast;
 }
+
+.hero-btns i {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.hero-btn--icon-only {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+}
+
 .btn-primary {
     background: v.$emerald;
     color: #fff;
@@ -123,10 +162,67 @@
     padding: 10px 14px;
     border-bottom: 1px solid #334155;
     display: flex;
-    gap: 6px;
-    @include m.dark{
+    align-items: center;
+    justify-content: space-between;
+
+    @include m.dark {
         background: #0f172a;
-        
+    }
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.terminal-theme-toggle {
+    display: flex;
+    align-items: center;
+
+    .checkbox {
+        opacity: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .checkbox-label {
+        background-color: #1e293b;
+        width: 42px;
+        height: 22px;
+        border-radius: 50px;
+        position: relative;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.2s linear;
+
+        .fa-moon {
+            color: #f1c40f;
+            font-size: 0.7rem;
+        }
+
+        .fa-sun {
+            color: #f39c12;
+            font-size: 0.7rem;
+        }
+
+        .ball {
+            background-color: #fff;
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            border-radius: 50%;
+            transition: transform 0.2s linear;
+        }
+    }
+
+    .checkbox:checked + .checkbox-label .ball {
+        transform: translateX(24px);
     }
 }
 .dot {

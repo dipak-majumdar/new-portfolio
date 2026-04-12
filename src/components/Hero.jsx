@@ -1,6 +1,6 @@
-import image from '../assets/dipak-majumdar.png';
+// import image from '../assets/dipak-majumdar.png';
 
-export default function Hero() {
+export default function Hero({ dark, toggleDark }) {
     return (
         <section id="hero">
             <div className="container">
@@ -8,29 +8,57 @@ export default function Hero() {
 
                     {/* Text side */}
                     <div data-aos="fade-up">
-                        <div className="badge">🚀 Available for opportunities</div>
+                        {/* <div className="badge">🚀 Available for opportunities</div> */}
                         <h2 className="hero-title">
-                            {/* Hi, I'm <br />  */}
                             <span className="accent">Dipak Majumdar</span>
                         </h2>
-                        <p className="hero-desc">
-                            A Results-driven software developer specializing in performance, scalability, and clean architecture.
-                        </p>
+                        <p className="hero-subtitle">Full Stack Developer</p>
+                        <div className="hero-location">
+                            <i className="fas fa-globe-asia" aria-hidden="true"></i>
+                            <span>Kolkata, India</span>
+                        </div>
                         <div className="hero-btns">
-                            <a href="#projects" className="btn-primary">View Work</a>
-                            <a href="/resume.pdf" download className="btn-outline">Download Resume</a>
+                            <a href="tel:+917699753019" className="btn-primary hero-btn--icon-only" aria-label="Call" title="Call">
+                                <i className="fas fa-phone-alt" aria-hidden="true"></i>
+                            </a>
+                            <a href="mailto:dipakmajumdar@zohomail.com" className="btn-primary hero-btn--icon-only" aria-label="Mail" title="Mail">
+                                <i className="fas fa-envelope" aria-hidden="true"></i>
+                            </a>
+                            <a href="/resume.pdf" download className="btn-outline">
+                                <i className="fas fa-download" aria-hidden="true"></i>
+                                <span>Resume</span>
+                            </a>
+                            <a href="#projects" className="btn-outline">
+                                <i className="fas fa-layer-group" aria-hidden="true"></i>
+                                <span>Projects</span>
+                            </a>
                         </div>
                     </div>
 
                     {/* Visual side */}
                     <div className="hero-visual" data-aos="zoom-in">
-                        {/* <img className="avatar-box glow" src={image} alt="" /> */}
-                        {/* <div className="avatar-box glow" /> */}
                         <div className="terminal w-full max-w-md">
                             <div className="terminal-header">
-                                <div className="dot red"></div>
-                                <div className="dot yellow"></div>
-                                <div className="dot green"></div>
+                                <div className="terminal-dots">
+                                    <div className="dot red"></div>
+                                    <div className="dot yellow"></div>
+                                    <div className="dot green"></div>
+                                </div>
+                                {/* Dark mode toggle in the terminal header */}
+                                <div className="terminal-theme-toggle">
+                                    <input
+                                        type="checkbox"
+                                        className="checkbox"
+                                        id="theme-checkbox"
+                                        checked={dark}
+                                        onChange={toggleDark}
+                                    />
+                                    <label htmlFor="theme-checkbox" className="checkbox-label">
+                                        <i className="fas fa-moon"></i>
+                                        <i className="fas fa-sun"></i>
+                                        <span className="ball"></span>
+                                    </label>
+                                </div>
                             </div>
                             <div className="terminal-body text-emerald-400">
                                 <div>{'>'} whoami</div>
@@ -48,4 +76,3 @@ export default function Hero() {
         </section>
     );
 }
-

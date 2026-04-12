@@ -1,6 +1,9 @@
 @use '../variables' as v;
 @use '../mixins' as m;
 
+#about{
+    padding-top: 1rem;
+}
 .about-text {
     text-align: left;
     margin: 0 auto;
