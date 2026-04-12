@@ -47,7 +47,7 @@
     margin-bottom: 0;
     color: v.$text-light;
     font-size: clamp(1rem, 2.4vw, 1.35rem);
-    font-weight: 600;
+    font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     
@@ -176,6 +176,7 @@
     align-items: center;
 }
 
+// dark mode toggle in terminal header
 .terminal-theme-toggle {
     display: flex;
     align-items: center;
@@ -188,11 +189,11 @@
 
     .checkbox-label {
         background-color: #1e293b;
-        width: 42px;
-        height: 22px;
+        width: 36px;
+        height: 15px;
         border-radius: 50px;
         position: relative;
-        padding: 5px;
+        padding: 3px;
         cursor: pointer;
         display: flex;
         justify-content: space-between;
@@ -201,21 +202,21 @@
 
         .fa-moon {
             color: #f1c40f;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
         }
 
         .fa-sun {
             color: #f39c12;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
         }
 
         .ball {
             background-color: #fff;
-            width: 18px;
-            height: 18px;
+            width: 12px;
+            height: 12px;
             position: absolute;
-            left: 2px;
-            top: 2px;
+            left: -2px;
+            top: 1px;
             border-radius: 50%;
             transition: transform 0.2s linear;
         }
