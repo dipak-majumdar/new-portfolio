@@ -1,7 +1,7 @@
 const stats = [
-    { value: '3+', label: 'Years Experience' },
+    { value: '4+', label: 'Years Experience' },
     { value: '15+', label: 'Projects Built' },
-    { value: '5+', label: 'APIs Designed' },
+    { value: '10+', label: 'APIs Designed' },
     { value: '99%', label: 'Uptime Focus' },
 ];
 
