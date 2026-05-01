@@ -10,6 +10,11 @@
     max-width: 1152px;
     margin: 0 auto;
 
+    @media (max-width: 768px) {
+        padding: 0rem 1rem;
+
+    }
+
     @include m.md {
         grid-template-columns: 1.5fr 1fr;
     }
@@ -49,6 +54,10 @@
     font-weight: 700;
     line-height: 1.15;
     text-transform: uppercase;
+
+    @include m.mobile {
+        font-size: clamp(2.1rem, 6vw, 3.75rem);
+    }
 
     .accent {
         color: v.$emerald;
@@ -110,6 +119,16 @@
     font-weight: 600;
     text-decoration: none;
     transition: background v.$transition-fast, transform v.$transition-fast;
+    
+    @include m.mobile {
+        padding: 0.3rem .5rem;
+    }
+
+    span{
+        @include m.mobile {
+            font-size: smaller;
+        }
+    }
 }
 
 .hero-btns i {
@@ -121,6 +140,11 @@
     width: 44px;
     height: 44px;
     padding: 0;
+
+    @include m.mobile {
+        width: 36px;
+        height: 36px;
+    }
 }
 
 .btn-primary {
