@@ -26,7 +26,7 @@ const projects = [
     {
         title: 'Logistics operations Platform',
         description: 'Scalable logistics handling fleet operations across owned and vendor vehicles, branch reward system, and RBAC for efficient operations.',
-        tags: ['fastAPI', 'React js', 'PostgreSQL', 'Websocket'],
+        tags: ['FastAPI', 'React js', 'PostgreSQL', 'Websocket'],
         delay: 250,
     },
     {
@@ -47,6 +47,12 @@ const projects = [
         tags: ['Laravel', 'JS', 'PostgreSQL'],
         delay: 400,
     },
+    {
+        title: 'POS for Restaurants',
+        description: 'Supports dine-in and takeaway orders, with real-time inventory tracking of raw materials and advanced reporting for business insights with RBAC.',
+        tags: ['FastAPI', 'JWT', 'React Js', 'PostgreSQL'],
+        delay: 450,
+    }
 
 ];
 
