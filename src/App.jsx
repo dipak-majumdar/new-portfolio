@@ -14,7 +14,7 @@ import SocialSidebar from './components/SocialSidebar';
 
 function App() {
   const [dark, setDark] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+    return localStorage.getItem('theme') !== 'light';
   });
 
   // true when the <footer> element enters the viewport
