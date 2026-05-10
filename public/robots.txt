@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dipak-majumdar.github.io/new-portfolio/sitemap.xml
