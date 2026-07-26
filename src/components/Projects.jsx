@@ -33,11 +33,10 @@ export default function Projects() {
                                 fontSize: '1.5rem',
                                 cursor: canGoLeft ? 'pointer' : 'not-allowed',
                                 opacity: canGoLeft ? 1 : 0.4,
-                                padding: '0 0.5rem',
                                 transition: 'opacity 0.2s',
                             }}
                         >
-                            &#8592;
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#e3e3e3"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/></svg>
                         </button>
                         <button
                             aria-label="Next projects"
@@ -49,11 +48,10 @@ export default function Projects() {
                                 fontSize: '1.5rem',
                                 cursor: canGoRight ? 'pointer' : 'not-allowed',
                                 opacity: canGoRight ? 1 : 0.4,
-                                padding: '0 0.5rem',
                                 transition: 'opacity 0.2s',
                             }}
                         >
-                            &#8594;
+                            <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#e3e3e3"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/></svg>
                         </button>
                     </div>
                 </div>

@@ -73,4 +73,14 @@
 // ─── Copyright text ───────────────────────────────────────────────────────────
 .footer-copy {
     margin: 0;
+
+    a {
+        color: v.$muted;
+        text-decoration: underline;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: v.$emerald-dark;
+        }
+    }
 }

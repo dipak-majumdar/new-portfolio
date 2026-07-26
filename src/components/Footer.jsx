@@ -25,7 +25,7 @@ const Footer = forwardRef(function Footer({ showSocials }, ref) {
             </div>
 
             <p className="footer-copy">
-                Deployed on <a href="https://www.oracle.com/in/cloud/">Oracle Cloud</a> By Dipak Majumdar &copy; {new Date().getFullYear()}
+                Deployed on <a href="https://www.oracle.com/in/cloud/">Oracle Cloud</a>&nbsp;By Dipak Majumdar &copy; {new Date().getFullYear()}
             </p>
         </footer>
     );
