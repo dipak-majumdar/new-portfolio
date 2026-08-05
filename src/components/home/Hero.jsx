@@ -26,7 +26,7 @@ export default function Hero({ dark, toggleDark }) {
                             <a href="mailto:dipakmajumdar@zohomail.com" className="btn-primary hero-btn--icon-only" aria-label="Mail" title="Mail">
                                 <Mail className="hero-icon" strokeWidth={2.5} aria-hidden="true" />
                             </a>
-                            <a href="/resume.pdf" download className="btn-outline">
+                            <a href="/dipak-majumdar-resume-python-developer.pdf" download className="btn-outline">
                                 <Download className="hero-icon" aria-hidden="true" />
                                 <span>Resume</span>
                             </a>

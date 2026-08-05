@@ -1,50 +1,65 @@
-name: Build and deploy to Oracle Cloud Compute
+name: Deploy Portfolio to OCI VM
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js 22.19.0
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.19.0'
-          cache: 'npm'
+          node-version: 22
+          cache: yarn
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
 
-      - name: Build
-        run: npm run build
+      - name: Build Next.js
+        run: yarn build
 
-      - name: Deploy files to Oracle Cloud Compute via SCP
-        uses: appleboy/scp-action@v1.0.0
+      - name: Prepare Standalone Build
+        run: |
+          cp -R public .next/standalone/
+          mkdir -p .next/standalone/.next
+          cp -R .next/static .next/standalone/.next/
+
+      - name: Upload Standalone Application
+        uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.OCI_VM_HOST }}
-          username: ${{ secrets.OCI_VM_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.OCI_VM_PORT || '22' }}
-          source: "dist/*"
-          target: "${{ secrets.OCI_VM_PATH || '/var/www/portfolio' }}/"
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USER }}
+          key: ${{ secrets.OCI_SSH_KEY }}
+          port: ${{ secrets.OCI_PORT }}
+          source: |
+            .next/standalone/*
+          target: /var/www/portfolio
+          strip_components: 2
           overwrite: true
 
-      - name: Run remote commands on OCI VM (optional)
-        uses: appleboy/ssh-action@v1.2.2
+      - name: Restart Application
+        uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.OCI_VM_HOST }}
-          username: ${{ secrets.OCI_VM_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.OCI_VM_PORT || '22' }}
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USER }}
+          key: ${{ secrets.OCI_SSH_KEY }}
+          port: ${{ secrets.OCI_PORT }}
           script: |
-            echo "Files deployed to ${{ secrets.OCI_VM_PATH || '/var/www/portfolio' }}/dist"
-            # Reload nginx if used
-            sudo systemctl reload nginx || true
-            ls -la ${{ secrets.OCI_VM_PATH || '/var/www/portfolio' }}/dist
+            cd /var/www/portfolio
+
+            if pm2 describe portfolio >/dev/null 2>&1; then
+              pm2 restart portfolio
+            else
+              pm2 start node --name portfolio -- server.js
+            fi
+
+            pm2 save
+
+            sudo systemctl reload nginx
