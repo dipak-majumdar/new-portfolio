@@ -1,6 +1,6 @@
 # Project Architecture
 
-This project is a personal developer portfolio built with React, Vite, and SCSS. It is designed as a single-page website that presents profile information, experience, projects, skills, and contact links.
+This project is a personal developer portfolio built with React, Next.js, and SCSS. It is designed as a single-page website that presents profile information, experience, projects, skills, and contact links.
 
 ## Rendering Model
 
@@ -9,7 +9,7 @@ The application uses client-side rendering (CSR).
 - `index.html` provides the base HTML shell.
 - `src/main.jsx` mounts the React app into `<div id="root"></div>`.
 - `src/App.jsx` composes the visible page sections.
-- Vite builds the app into static files inside `dist/`.
+- Next.js builds the app into a `.next` directory.
 
 There is no server-side rendering, static pre-rendering, backend API, or routing layer in the current architecture.
 
@@ -20,7 +20,7 @@ Browser
   |
   | loads index.html
   v
-Vite-built JS bundle
+Next.js server bundle
   |
   | runs src/main.jsx
   v
@@ -119,7 +119,7 @@ The styling approach is component-oriented but not CSS Modules-based. Class name
 
 Static assets are split between `src/assets/` and `public/`.
 
-- `src/assets/` is for assets imported by React or bundled by Vite.
+- `src/assets/` is for assets imported by React or bundled by Next.js.
 - `public/` is for files served directly from the site root.
 - Favicons and PWA manifest files are stored under `public/assets/images/site/`.
 
@@ -146,27 +146,27 @@ Because the app uses CSR, most visible page content is not present in the initia
 
 ## Build and Deployment
 
-Development server:
+Development server (runs locally):
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 Production build:
 
 ```bash
-yarn build
+npm run build
 ```
 
-Preview production build:
+Start production server:
 
 ```bash
-yarn preview
+npm start
 ```
 
-The production build outputs static files to `dist/`.
+The production build outputs static files to `.next`.
 
-If deploying under a subpath such as GitHub Pages at `/new-portfolio/`, configure Vite's `base` option so generated asset URLs match the deployment path.
+If deploying under a subpath, configure Next.js `basePath` in `next.config.js` so generated asset URLs match the deployment path.
 
 ## Important Constraints
 
@@ -183,5 +183,5 @@ If deploying under a subpath such as GitHub Pages at `/new-portfolio/`, configur
 - Move all profile, experience, project, and skills content into structured data files.
 - Add route-based pages for projects, experience, and case studies.
 - Add project detail pages with richer text, screenshots, live links, and repository links.
-- Configure deployment base path explicitly in `vite.config.js`.
+- Configure deployment base path explicitly in `next.config.js`.
 - Add automated checks for build, linting, broken links, and metadata validation.

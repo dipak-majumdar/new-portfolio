@@ -1,6 +1,6 @@
 # Dipak Majumdar Portfolio
 
-A responsive single-page developer portfolio built with React, Vite, and SCSS. The site highlights my profile, experience, projects, skills, and contact options with smooth scroll navigation, AOS-based entrance animations, and a persistent light/dark theme toggle.
+A responsive developer portfolio built with Next.js, React, and SCSS. The site showcases profile details, experience, projects, skills, and contact options with smooth section transitions, AOS-powered animations, and a persistent light/dark theme toggle.
 
 ## Features
 
@@ -10,14 +10,15 @@ A responsive single-page developer portfolio built with React, Vite, and SCSS. T
 - Dark mode with theme preference saved in `localStorage`
 - SCSS-based styling with shared design tokens in [`src/styles/_variables.scss`](src/styles/_variables.scss)
 - Animated section reveals powered by `aos`
+- Built with Next.js App Router and React 19
 
-## Tech Stack`
+## Tech Stack
 
+- Next.js 16
 - React 19
-- Vite 7
 - Sass
 - AOS
-- Font Awesome via CDN
+- Lucide icons
 - Devicon icons via CDN
 
 ## Getting Started
@@ -34,14 +35,14 @@ yarn
 yarn dev
 ```
 
-Open the local Vite URL shown in the terminal, usually `http://localhost:5173`.
+Open the local Next.js URL shown in the terminal, usually `http://localhost:3000`.
 
 ## Scripts
 
 ```bash
-yarn dev      # start the development server
-yarn build    # create a production build in dist/
-yarn preview  # preview the production build locally
+yarn dev      # start the Next.js development server
+yarn build    # create a production build
+yarn start    # run the production server after build
 yarn lint     # run ESLint
 ```
 
@@ -49,21 +50,40 @@ yarn lint     # run ESLint
 
 ```text
 src/
-  App.jsx                  # app composition, theme persistence, AOS setup
+  app/
+    globals.scss           # global styles imported by Next.js App Router
+    layout.jsx             # root app layout
+    loading.jsx            # loading state for route transitions
+    not-found.jsx          # custom 404 fallback
+    page.jsx               # homepage entry point
+    projects/
+      [slug]/
+        page.jsx           # dynamic project detail route
   components/
-    Hero.jsx               # intro, CTA buttons, dark-mode toggle
-    About.jsx              # summary section
-    Stats.jsx              # quick stats
-    Experience.jsx         # work experience cards
-    Projects.jsx           # featured project grid
-    Skills.jsx             # grouped skills with devicon assets
-    SocialSidebar.jsx      # floating social links
-    Footer.jsx             # footer + responsive social dock
+    home/
+      About.jsx            # summary section
+      Experience.jsx       # work experience cards
+      Hero.jsx             # intro, CTA buttons, dark-mode toggle
+      Projects.jsx         # featured project grid
+      Skills.jsx           # grouped skills with devicon assets
+      Stats.jsx            # quick stats
+    layout/
+      Footer.jsx           # footer + responsive social dock
+      SocialSidebar.jsx    # floating social links
+    ui/
   data/
+    profile.js             # profile content and metadata
+    projects.js            # featured projects data
+    skills.js              # skill groups data
     socials.jsx            # shared social link data
+  lib/
+    constants.js           # site constants
+    metadata.js            # SEO metadata config
+    schema.js              # structured data helpers
   styles/
-    _variables.scss        # theme tokens and breakpoints
     _base.scss             # global styles
+    _mixins.scss           # reusable Sass mixins
+    _variables.scss        # theme tokens and breakpoints
     components/            # section-level SCSS modules
 public/
   resume.pdf               # add this file if you want the Resume button to work
@@ -71,14 +91,14 @@ public/
 
 ## Customization
 
-- Update personal details, contact info, and hero actions in [`src/components/Hero.jsx`](src/components/Hero.jsx).
-- Replace the placeholder social links in [`src/data/socials.jsx`](src/data/socials.jsx) before deploying.
-- Edit the about copy in [`src/components/About.jsx`](src/components/About.jsx).
-- Update work history in [`src/components/Experience.jsx`](src/components/Experience.jsx).
-- Update project cards in [`src/components/Projects.jsx`](src/components/Projects.jsx).
-- Adjust skill groups in [`src/components/Skills.jsx`](src/components/Skills.jsx).
+- Update personal details, contact info, and hero actions in [`src/components/home/Hero.jsx`](src/components/home/Hero.jsx).
+- Replace placeholder social links in [`src/data/socials.jsx`](src/data/socials.jsx) before deploying.
+- Edit the about copy in [`src/components/home/About.jsx`](src/components/home/About.jsx).
+- Update work history in [`src/components/home/Experience.jsx`](src/components/home/Experience.jsx).
+- Update project cards in [`src/components/home/Projects.jsx`](src/components/home/Projects.jsx).
+- Adjust skill groups in [`src/components/home/Skills.jsx`](src/components/home/Skills.jsx).
 - Tweak colors, typography, spacing, and breakpoints in [`src/styles/_variables.scss`](src/styles/_variables.scss).
-- Change the document title or external CDN links in [`index.html`](index.html).
+- Change the document title or external CDN links in [`src/app/layout.jsx`](src/app/layout.jsx).
 
 ## Important Notes
 
@@ -91,4 +111,10 @@ public/
 yarn build
 ```
 
-The production-ready files will be generated in the `dist/` directory.
+Run the production server after building with:
+
+```bash
+yarn start
+```
+
+The production-ready files will be served by Next.js and optimized at build time.

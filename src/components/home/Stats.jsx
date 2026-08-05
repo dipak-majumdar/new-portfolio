@@ -1,3 +1,4 @@
+"use client";
 const stats = [
     { value: '4+', label: 'Years Experience' },
     { value: '15+', label: 'Projects Built' },

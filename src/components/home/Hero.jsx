@@ -1,3 +1,5 @@
+"use client";
+import { Globe, Phone, Mail, Download, Layers, Moon, Sun, Loader } from 'lucide-react';
 // import image from '../assets/dipak-majumdar.png';
 
 export default function Hero({ dark, toggleDark }) {
@@ -14,22 +16,22 @@ export default function Hero({ dark, toggleDark }) {
                         </h2>
                         <p className="hero-subtitle">Full Stack Developer</p>
                         <div className="hero-location">
-                            <i className="fas fa-globe-asia" aria-hidden="true"></i>
+                            <Globe className="hero-icon" aria-hidden="true" />
                             <span>Kolkata, India</span>
                         </div>
                         <div className="hero-btns">
                             <a href="tel:+917699753019" className="btn-primary hero-btn--icon-only" aria-label="Call" title="Call">
-                                <i className="fas fa-phone-alt" aria-hidden="true"></i>
+                                <Phone className="hero-icon" strokeWidth={2.5} aria-hidden="true" />
                             </a>
                             <a href="mailto:dipakmajumdar@zohomail.com" className="btn-primary hero-btn--icon-only" aria-label="Mail" title="Mail">
-                                <i className="fas fa-envelope" aria-hidden="true"></i>
+                                <Mail className="hero-icon" strokeWidth={2.5} aria-hidden="true" />
                             </a>
                             <a href="/resume.pdf" download className="btn-outline">
-                                <i className="fas fa-download" aria-hidden="true"></i>
+                                <Download className="hero-icon" aria-hidden="true" />
                                 <span>Resume</span>
                             </a>
                             <a href="#projects" className="btn-outline">
-                                <i className="fas fa-layer-group" aria-hidden="true"></i>
+                                <Layers className="hero-icon" aria-hidden="true" />
                                 <span>Projects</span>
                             </a>
                         </div>
@@ -54,8 +56,8 @@ export default function Hero({ dark, toggleDark }) {
                                         onChange={toggleDark}
                                     />
                                     <label htmlFor="theme-checkbox" className="checkbox-label">
-                                        <i className="fas fa-moon"></i>
-                                        <i className="fas fa-sun"></i>
+                                        <Moon className="toggle-icon moon-icon" aria-hidden="true" />
+                                        <Sun className="toggle-icon sun-icon" aria-hidden="true" />
                                         <span className="ball"></span>
                                     </label>
                                 </div>

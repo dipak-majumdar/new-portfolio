@@ -1,4 +1,5 @@
-import skillGroups from '../data/skills.js'
+"use client";
+import skillGroups from '../../data/skills.js'
 
 export default function Skills() {
     return (

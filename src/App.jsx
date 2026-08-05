@@ -1,39 +1,36 @@
+﻿'use client';
+
 import { useState, useEffect, useRef } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-import Hero from './components/Hero';
-import Stats from './components/Stats';
-import About from './components/About';
-import Experience from './components/Experience';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Footer from './components/Footer';
-import SocialSidebar from './components/SocialSidebar';
+import Hero from './components/home/Hero';
+import Stats from './components/home/Stats';
+import About from './components/home/About';
+import Experience from './components/home/Experience';
+import Skills from './components/home/Skills';
+import Projects from './components/home/Projects';
+import Footer from './components/layout/Footer';
+import SocialSidebar from './components/layout/SocialSidebar';
 
 function App() {
   const [dark, setDark] = useState(() => {
+    if (typeof window === 'undefined') return true;
     return localStorage.getItem('theme') !== 'light';
   });
 
-  // true when the <footer> element enters the viewport
   const [footerInView, setFooterInView] = useState(false);
   const footerRef = useRef(null);
 
-  // Apply / remove dark class on <body>
   useEffect(() => {
     document.body.classList.toggle('dark', dark);
     localStorage.setItem('theme', dark ? 'dark' : 'light');
   }, [dark]);
 
-  // Initialise AOS once
   useEffect(() => {
     AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
   }, []);
 
-  // Watch footer visibility — drives sidebar hide / footer icons show
-  // Only active on screens ≤ 1200px; ignored on wider viewports
   useEffect(() => {
     const el = footerRef.current;
     if (!el) return;
@@ -41,7 +38,6 @@ function App() {
     const MAX_WIDTH = 1200;
 
     const apply = (isIntersecting) => {
-      // Only dock on small/medium screens
       setFooterInView(window.innerWidth <= MAX_WIDTH && isIntersecting);
     };
 
@@ -51,7 +47,6 @@ function App() {
     );
     observer.observe(el);
 
-    // When resizing to a large screen, always un-dock immediately
     const onResize = () => {
       if (window.innerWidth > MAX_WIDTH) setFooterInView(false);
     };
@@ -63,13 +58,12 @@ function App() {
     };
   }, []);
 
-  const toggleDark = () => setDark(d => !d);
+  const toggleDark = () => setDark((d) => !d);
 
   return (
     <>
-      {/* Floating sidebar hidden when footer is in view */}
       <SocialSidebar hidden={footerInView} />
-      
+
       <main>
         <Hero dark={dark} toggleDark={toggleDark} />
         <About />
@@ -79,7 +73,6 @@ function App() {
         <Skills />
       </main>
 
-      {/* Pass ref for IntersectionObserver + showSocials flag */}
       <Footer ref={footerRef} showSocials={footerInView} />
     </>
   );

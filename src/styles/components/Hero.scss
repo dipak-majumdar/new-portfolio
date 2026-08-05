@@ -131,9 +131,11 @@
     }
 }
 
-.hero-btns i {
-    font-size: 0.95rem;
-    line-height: 1;
+.hero-btns .hero-icon {
+    width: 1rem;
+    height: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
 }
 
 .hero-btn--icon-only {
@@ -241,14 +243,14 @@
         align-items: center;
         transition: background 0.2s linear;
 
-        .fa-moon {
+        .toggle-icon {
             color: #f1c40f;
-            font-size: 0.6rem;
+            width: 0.9rem;
+            height: 0.9rem;
         }
 
-        .fa-sun {
+        .sun-icon {
             color: #f39c12;
-            font-size: 0.6rem;
         }
 
         .ball {

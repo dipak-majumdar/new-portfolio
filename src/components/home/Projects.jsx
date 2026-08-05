@@ -1,6 +1,6 @@
-
+"use client";
 import { useState } from 'react';
-import projects from '../data/projects';
+import projects from '../../data/projects';
 
 export default function Projects() {
     const [startIndex, setStartIndex] = useState(0);

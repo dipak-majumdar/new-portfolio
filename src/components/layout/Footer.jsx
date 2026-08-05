@@ -1,5 +1,6 @@
+"use client";
 import { forwardRef } from 'react';
-import { socials } from '../data/socials';
+import { socials } from '../../data/socials';
 
 // showSocials=true  → footer is in view, render bare social icons inside
 // showSocials=false → plain copyright footer

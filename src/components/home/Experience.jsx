@@ -1,3 +1,4 @@
+"use client";
 const experiences = [
     {
         title: 'Application Developer',

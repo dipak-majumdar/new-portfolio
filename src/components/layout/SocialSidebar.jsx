@@ -1,4 +1,5 @@
-import { socials } from '../data/socials';
+"use client";
+import { socials } from '../../data/socials';
 
 // hidden=true  → footer is in view, sidebar fades out
 // hidden=false → normal floating sidebar
