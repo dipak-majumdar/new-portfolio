@@ -45,8 +45,10 @@ jobs:
 
       - name: Create Deployment Archive
         run: |
-          cd .next/standalone
-          tar -czf ../../../portfolio-deploy.tar.gz .
+          tar -czf portfolio-deploy.tar.gz -C .next/standalone .
+
+          echo "Deployment archive created:"
+          ls -lh portfolio-deploy.tar.gz
 
       - name: Upload Deployment
         uses: appleboy/scp-action@v0.1.7
@@ -56,7 +58,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.OCI_VM_PORT }}
           source: "portfolio-deploy.tar.gz"
-          target: "/tmp"
+          target: "/tmp/"
           overwrite: true
 
       - name: Deploy and Restart Application
