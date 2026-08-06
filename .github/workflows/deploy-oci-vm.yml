@@ -59,67 +59,53 @@ jobs:
           ssh-keyscan -p ${{ secrets.OCI_VM_PORT }} \
             -H ${{ secrets.OCI_VM_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Upload Deployment
-        run: |
-          scp \
-            -i ~/.ssh/oci_key \
-            -P "${{ secrets.OCI_VM_PORT }}" \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -o ConnectTimeout=30 \
-            -o ServerAliveInterval=30 \
-            -o ServerAliveCountMax=10 \
-            portfolio-deploy.tar.gz \
-            "${{ secrets.OCI_VM_USER }}@${{ secrets.OCI_VM_HOST }}:/tmp/portfolio-deploy.tar.gz"
+      - name: Upload Deployment Archive
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.OCI_VM_HOST }}
+          username: ${{ secrets.OCI_VM_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.OCI_VM_PORT }}
+          source: "portfolio-deploy.tar.gz"
+          target: "/tmp"
+          overwrite: true
+          timeout: 60s
+          command_timeout: 10m
 
       - name: Deploy and Restart Application
-        run: |
-          ssh \
-            -i ~/.ssh/oci_key \
-            -p "${{ secrets.OCI_VM_PORT }}" \
-            -o StrictHostKeyChecking=no \
-            -o UserKnownHostsFile=/dev/null \
-            -o ConnectTimeout=30 \
-            -o ServerAliveInterval=30 \
-            -o ServerAliveCountMax=10 \
-            "${{ secrets.OCI_VM_USER }}@${{ secrets.OCI_VM_HOST }}" << 'EOF'
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.OCI_VM_HOST }}
+          username: ${{ secrets.OCI_VM_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.OCI_VM_PORT }}
+          command_timeout: 10m
+          script: |
+            set -e
 
-              set -e
+            cd /var/www/portfolio
 
-              echo "Starting deployment..."
+            echo "Extracting deployment..."
+            tar -xzf /tmp/portfolio-deploy.tar.gz
 
-              mkdir -p /var/www/portfolio
+            rm -f /tmp/portfolio-deploy.tar.gz
 
-              cd /var/www/portfolio
+            echo "Restarting application..."
 
-              echo "Extracting new build..."
+            if pm2 describe portfolio >/dev/null 2>&1; then
+              pm2 restart portfolio --update-env
+            else
+              pm2 start server.js --name portfolio
+            fi
 
-              tar -xzf /tmp/portfolio-deploy.tar.gz
+            pm2 save
 
-              rm -f /tmp/portfolio-deploy.tar.gz
+            sleep 3
 
-              echo "Restarting Next.js..."
+            echo "Checking application..."
+            curl --fail http://127.0.0.1:3000 > /dev/null
 
-              if pm2 describe portfolio >/dev/null 2>&1; then
-                pm2 restart portfolio --update-env
-              else
-                pm2 start server.js --name portfolio
-              fi
+            sudo nginx -t
+            sudo systemctl reload nginx
 
-              pm2 save
-
-              echo "Waiting for application..."
-              sleep 3
-
-              echo "Running health check..."
-
-              curl --fail --silent http://127.0.0.1:3000 > /dev/null
-
-              echo "Next.js is healthy."
-
-              sudo nginx -t
-              sudo systemctl reload nginx
-
-              echo "Deployment completed successfully."
-
-          EOF
+            echo "Deployment successful."
