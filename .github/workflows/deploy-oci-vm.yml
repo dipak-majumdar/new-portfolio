@@ -34,10 +34,10 @@ jobs:
       - name: Upload Standalone Application
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.OCI_HOST }}
-          username: ${{ secrets.OCI_USER }}
+          host: ${{ secrets.OCI_VM_HOST }}
+          username: ${{ secrets.OCI_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.OCI_PORT }}
+          port: ${{ secrets.OCI_VM_PORT }}
           source: |
             .next/standalone/*
           target: /var/www/portfolio
@@ -47,10 +47,10 @@ jobs:
       - name: Restart Application
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.OCI_HOST }}
-          username: ${{ secrets.OCI_USER }}
+          host: ${{ secrets.OCI_VM_HOST }}
+          username: ${{ secrets.OCI_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.OCI_PORT }}
+          port: ${{ secrets.OCI_VM_PORT }}
           script: |
             cd /var/www/portfolio
 
