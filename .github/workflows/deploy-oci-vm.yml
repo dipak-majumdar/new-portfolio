@@ -5,9 +5,16 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
+concurrency:
+  group: portfolio-production
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout Repository
@@ -27,24 +34,32 @@ jobs:
 
       - name: Prepare Standalone Build
         run: |
-          cp -R public .next/standalone/
-          mkdir -p .next/standalone/.next
-          cp -R .next/static .next/standalone/.next/
+          cp -R public .next/standalone/public
 
-      - name: Upload Standalone Application
+          mkdir -p .next/standalone/.next
+          cp -R .next/static .next/standalone/.next/static
+
+          echo "Prepared deployment:"
+          ls -la .next/standalone
+          ls -la .next/standalone/.next
+
+      - name: Create Deployment Archive
+        run: |
+          cd .next/standalone
+          tar -czf ../../../portfolio-deploy.tar.gz .
+
+      - name: Upload Deployment
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.OCI_VM_HOST }}
           username: ${{ secrets.OCI_VM_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.OCI_VM_PORT }}
-          source: |
-            .next/standalone/*
-          target: /var/www/portfolio
-          strip_components: 2
+          source: "portfolio-deploy.tar.gz"
+          target: "/tmp"
           overwrite: true
 
-      - name: Restart Application
+      - name: Deploy and Restart Application
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.OCI_VM_HOST }}
@@ -52,14 +67,39 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.OCI_VM_PORT }}
           script: |
+            set -e
+
+            echo "Deploying portfolio..."
+
+            mkdir -p /var/www/portfolio
+
             cd /var/www/portfolio
 
+            tar -xzf /tmp/portfolio-deploy.tar.gz
+
+            rm -f /tmp/portfolio-deploy.tar.gz
+
+            echo "Deployment extracted."
+
             if pm2 describe portfolio >/dev/null 2>&1; then
-              pm2 restart portfolio
+              echo "Restarting portfolio..."
+              pm2 restart portfolio --update-env
             else
-              pm2 start node --name portfolio -- server.js
+              echo "Starting portfolio..."
+              pm2 start server.js --name portfolio
             fi
 
             pm2 save
 
+            echo "Checking application..."
+
+            sleep 3
+
+            curl --fail http://127.0.0.1:3000 > /dev/null
+
+            echo "Application is healthy."
+
+            sudo nginx -t
             sudo systemctl reload nginx
+
+            echo "Deployment completed successfully."
