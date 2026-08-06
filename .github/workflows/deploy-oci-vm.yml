@@ -63,53 +63,63 @@ jobs:
         run: |
           scp \
             -i ~/.ssh/oci_key \
-            -P ${{ secrets.OCI_VM_PORT }} \
+            -P "${{ secrets.OCI_VM_PORT }}" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -o ConnectTimeout=30 \
             -o ServerAliveInterval=30 \
             -o ServerAliveCountMax=10 \
             portfolio-deploy.tar.gz \
-            ${{ secrets.OCI_VM_USER }}@${{ secrets.OCI_VM_HOST }}:/tmp/portfolio-deploy.tar.gz
+            "${{ secrets.OCI_VM_USER }}@${{ secrets.OCI_VM_HOST }}:/tmp/portfolio-deploy.tar.gz"
 
       - name: Deploy and Restart Application
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.OCI_VM_HOST }}
-          username: ${{ secrets.OCI_VM_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.OCI_VM_PORT }}
-          script: |
-            set -e
+        run: |
+          ssh \
+            -i ~/.ssh/oci_key \
+            -p "${{ secrets.OCI_VM_PORT }}" \
+            -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            -o ConnectTimeout=30 \
+            -o ServerAliveInterval=30 \
+            -o ServerAliveCountMax=10 \
+            "${{ secrets.OCI_VM_USER }}@${{ secrets.OCI_VM_HOST }}" << 'EOF'
 
-            echo "Deploying portfolio..."
+              set -e
 
-            mkdir -p /var/www/portfolio
+              echo "Starting deployment..."
 
-            cd /var/www/portfolio
+              mkdir -p /var/www/portfolio
 
-            tar -xzf /tmp/portfolio-deploy.tar.gz
+              cd /var/www/portfolio
 
-            rm -f /tmp/portfolio-deploy.tar.gz
+              echo "Extracting new build..."
 
-            echo "Deployment extracted."
+              tar -xzf /tmp/portfolio-deploy.tar.gz
 
-            if pm2 describe portfolio >/dev/null 2>&1; then
-              echo "Restarting portfolio..."
-              pm2 restart portfolio --update-env
-            else
-              echo "Starting portfolio..."
-              pm2 start server.js --name portfolio
-            fi
+              rm -f /tmp/portfolio-deploy.tar.gz
 
-            pm2 save
+              echo "Restarting Next.js..."
 
-            echo "Checking application..."
+              if pm2 describe portfolio >/dev/null 2>&1; then
+                pm2 restart portfolio --update-env
+              else
+                pm2 start server.js --name portfolio
+              fi
 
-            sleep 3
+              pm2 save
 
-            curl --fail http://127.0.0.1:3000 > /dev/null
+              echo "Waiting for application..."
+              sleep 3
 
-            echo "Application is healthy."
+              echo "Running health check..."
 
-            sudo nginx -t
-            sudo systemctl reload nginx
+              curl --fail --silent http://127.0.0.1:3000 > /dev/null
 
-            echo "Deployment completed successfully."
+              echo "Next.js is healthy."
+
+              sudo nginx -t
+              sudo systemctl reload nginx
+
+              echo "Deployment completed successfully."
+
+          EOF
