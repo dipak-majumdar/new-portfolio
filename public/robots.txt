@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dipak-majumdar.github.io/new-portfolio/sitemap.xml
+Sitemap: https://dipakmajumdar.com/sitemap.xml
