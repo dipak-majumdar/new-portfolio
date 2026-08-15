@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.scss";
 
 const PRODUCTION_HOST = "dipakmajumdar.com";
-const BASE_URL = `https://${PRODUCTION_HOST}`;
+const BASE_URL = `https://www.${PRODUCTION_HOST}`;
 
 // ─── Shared metadata (all pages) ─────────────────────────────────────────────
 const sharedMetadata = {
