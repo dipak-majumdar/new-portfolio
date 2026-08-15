@@ -80,7 +80,8 @@ export async function generateMetadata() {
   const headersList = await headers();
   const host = headersList.get("host") ?? "";
   const hostname = host.split(":")[0]; // strip port for localhost
-  const isProduction = hostname === PRODUCTION_HOST;
+  // Match both dipakmajumdar.com and www.dipakmajumdar.com
+  const isProduction = hostname === PRODUCTION_HOST || hostname.endsWith(`.${PRODUCTION_HOST}`);
 
   return {
     ...sharedMetadata,
