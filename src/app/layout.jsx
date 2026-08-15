@@ -1,9 +1,12 @@
+import { headers } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.scss";
 
-const BASE_URL = "https://dipakmajumdar.com";
+const PRODUCTION_HOST = "dipakmajumdar.com";
+const BASE_URL = `https://${PRODUCTION_HOST}`;
 
-export const metadata = {
+// ─── Shared metadata (all pages) ─────────────────────────────────────────────
+const sharedMetadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
@@ -34,21 +37,7 @@ export const metadata = {
   authors: [{ name: "Dipak Majumdar", url: BASE_URL }],
   creator: "Dipak Majumdar",
 
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-
-  alternates: {
-    canonical: BASE_URL,
-  },
+  alternates: { canonical: BASE_URL },
 
   openGraph: {
     type: "website",
@@ -82,12 +71,41 @@ export const metadata = {
       { url: "/assets/images/site/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/assets/images/site/apple-touch-icon.png",
-    other: [
-      { rel: "manifest", url: "/assets/images/site/site.webmanifest" },
-    ],
+    other: [{ rel: "manifest", url: "/assets/images/site/site.webmanifest" }],
   },
 };
 
+// ─── Dynamic metadata – noindex on any non-production domain ──────────────────
+export async function generateMetadata() {
+  const headersList = await headers();
+  const host = headersList.get("host") ?? "";
+  const hostname = host.split(":")[0]; // strip port for localhost
+  const isProduction = hostname === PRODUCTION_HOST;
+
+  return {
+    ...sharedMetadata,
+    robots: isProduction
+      ? {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+          },
+        }
+      : {
+          // Vercel previews, localhost, staging – keep out of search engines
+          index: false,
+          follow: false,
+          googleBot: { index: false, follow: false },
+        },
+  };
+}
+
+// ─── JSON-LD Person schema ────────────────────────────────────────────────────
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
