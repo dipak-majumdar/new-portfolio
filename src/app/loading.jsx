@@ -1,8 +1,6 @@
-﻿export default function Loading() {
-  return (
-    <main>
-      <p>Loading…</p>
-    </main>
-  );
+﻿import Component from "@/components/ui/animated-loader-1";
+
+export default function Loading() {
+  return <Component />;
 }
 
