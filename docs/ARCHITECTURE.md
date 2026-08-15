@@ -149,19 +149,19 @@ Because the app uses CSR, most visible page content is not present in the initia
 Development server (runs locally):
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Production build:
 
 ```bash
-npm run build
+yarn build
 ```
 
 Start production server:
 
 ```bash
-npm start
+yarn start
 ```
 
 The production build outputs static files to `.next`.
