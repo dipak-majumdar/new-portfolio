@@ -1,4 +1,4 @@
-﻿import Component from "@/components/ui/animated-loader-1";
+﻿import Component from "@/components/ui/page-loader";
 
 export default function Loading() {
   return <Component />;
