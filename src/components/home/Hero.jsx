@@ -11,9 +11,9 @@ export default function Hero({ dark, toggleDark }) {
                     {/* Text side */}
                     <div data-aos="fade-up">
                         {/* <div className="badge">🚀 Available for opportunities</div> */}
-                        <h2 className="hero-title">
+                        <h1 className="hero-title">
                             <span className="accent">Dipak Majumdar</span>
-                        </h2>
+                        </h1>
                         <p className="hero-subtitle">Full Stack Developer</p>
                         <div className="hero-location">
                             <Globe className="hero-icon" aria-hidden="true" />

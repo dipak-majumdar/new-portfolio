@@ -21,7 +21,7 @@ export default function Experience() {
     return (
         <section id="experience">
             <div className="container">
-                <h3 className="section-title" data-aos="fade-up">Experience</h3>
+                <h2 className="section-title" data-aos="fade-up">Experience</h2>
                 <div className="experience-list">
                     {experiences.map(({ title, company, period, description, delay = 0 }) => (
                         <div
@@ -32,10 +32,10 @@ export default function Experience() {
                             data-aos-delay={delay}
                         >
                             <div className="exp-header">
-                                <h4 className="exp-title">{title}</h4>
+                                <h3 className="exp-title">{title}</h3>
                                 <span className="exp-date">{period}</span>
                             </div>
-                            <p className="exp-company">{company}</p>
+                            <h4 className="exp-company">{company}</h4>
                             <p className="exp-desc">{description}</p>
                         </div>
                     ))}

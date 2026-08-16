@@ -21,7 +21,7 @@ export default function Projects() {
         <section id="projects">
             <div className="container">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3rem' }}>
-                    <h3 className="section-title" data-aos="fade-up" style={{ margin: 0 }}>Projects</h3>
+                    <h2 className="section-title" data-aos="fade-up" style={{ margin: 0 }}>Projects</h2>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <button
                             aria-label="Previous projects"
@@ -63,7 +63,7 @@ export default function Projects() {
                             data-aos="fade-up"
                             data-aos-delay={delay}
                         >
-                            <h4 className="project-title">{title}</h4>
+                            <h3 className="project-title">{title}</h3>
                             <p className="project-desc">{description}</p>
                             <div className="tags">
                                 {tags.map(tag => (
